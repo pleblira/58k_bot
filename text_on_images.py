@@ -27,7 +27,8 @@ def text_on_images(price_58k, tweet_image):
         # tweet_image.save("58k_bot_with_text.png")
 
         # prepping to write the price of bitcoin
-        # font_size = 80
+        font_size = 140
+        font = ImageFont.truetype("Silom.ttf",font_size)
         # rotate_angle = 0
         # paste_x_position = 265
         # paste_y_position = 700
