@@ -13,11 +13,11 @@ class RelayPolicy:
         self.should_read = should_read
         self.should_write = should_write
 
-    def to_json_object(self) -> dict[str, bool]:
-        return { 
-            "read": self.should_read, 
-            "write": self.should_write
-        }
+    # def to_json_object(self) -> dict[str, bool]:
+    #     return { 
+    #         "read": self.should_read, 
+    #         "write": self.should_write
+    #     }
 
 class Relay:
     def __init__(
