@@ -6,7 +6,7 @@ from cryptography.hazmat.primitives.ciphers import Cipher, algorithms, modes
 from cryptography.hazmat.primitives import padding
 from hashlib import sha256
 
-from .delegation import Delegation
+# from .delegation import Delegation
 from .event import Event
 from . import bech32
 
@@ -108,8 +108,8 @@ class PrivateKey:
     def sign_event(self, event: Event) -> None:
         event.signature = self.sign_message_hash(bytes.fromhex(event.id))
 
-    def sign_delegation(self, delegation: Delegation) -> None:
-        delegation.signature = self.sign_message_hash(sha256(delegation.delegation_token.encode()).digest())
+    # def sign_delegation(self, delegation: Delegation) -> None:
+    #     delegation.signature = self.sign_message_hash(sha256(delegation.delegation_token.encode()).digest())
 
     def __eq__(self, other):
         return self.raw_secret == other.raw_secret
