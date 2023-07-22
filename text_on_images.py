@@ -10,7 +10,7 @@ def text_on_images(price_58k, tweet_image):
         paste_y_position = 300
 
         tweet_image = Image.open(tweet_image)
-        font = ImageFont.truetype("assets/Silom.ttf",font_size)
+        font = ImageFont.truetype("Silom.ttf",font_size)
         
         # Creating a temporary canvas, drawing the title line in it
         temporary_canvas = Image.new(mode='L', size=(1080,1080))
