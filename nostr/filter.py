@@ -3,6 +3,8 @@ from typing import List
 
 from .event import Event, EventKind
 
+
+
 class Filter:
     """
     NIP-01 filtering.

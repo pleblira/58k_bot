@@ -20,6 +20,7 @@
 
 """Reference implementation for Bech32/Bech32m and segwit addresses."""
 
+
 from enum import Enum
 
 class Encoding(Enum):

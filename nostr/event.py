@@ -3,7 +3,9 @@ import json
 from enum import IntEnum
 from secp256k1 import PrivateKey, PublicKey
 from hashlib import sha256
-from .message_type import ClientMessageType
+
+from nostr.message_type import ClientMessageType
+
 
 class EventKind(IntEnum):
     SET_METADATA = 0
@@ -20,12 +22,10 @@ class Event():
             public_key: str, 
             content: str, 
             created_at: int = None, 
-            kind: int=EventKind.TEXT_NOTE,
-            tags: "list[list[str]]"=[],
+            kind: int=EventKind.TEXT_NOTE, 
+            tags: "list[list[str]]"=[], 
             id: str=None, 
-            signature: str=None,
-            json: "list"=[]) -> None:
-
+            signature: str=None) -> None:
         if not isinstance(content, str):
             raise TypeError("Argument 'content' must be of type str")
 
@@ -34,9 +34,8 @@ class Event():
         self.created_at = created_at or int(time.time())
         self.kind = kind
         self.tags = tags
-        self.id = id or Event.compute_id(self.public_key, self.created_at, self.kind, self.tags, self.content)
         self.signature = signature
-        self.json = json
+        self.id = id or Event.compute_id(self.public_key, self.created_at, self.kind, self.tags, self.content)
 
     @staticmethod
     def serialize(public_key: str, created_at: int, kind: int, tags: "list[list[str]]", content: str) -> bytes:
@@ -64,8 +63,7 @@ class Event():
                     "kind": self.kind,
                     "tags": self.tags,
                     "content": self.content,
-                    "sig": self.signature,
-                    "json": self.json
+                    "sig": self.signature
                 }
             ]
         )

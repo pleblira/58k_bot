@@ -7,8 +7,12 @@ from .message_pool import MessagePool
 from .message_type import ClientMessageType
 from .relay import Relay, RelayPolicy
 
+
+
 class RelayException(Exception):
     pass
+
+
 
 class RelayManager:
     def __init__(self) -> None:
@@ -40,9 +44,7 @@ class RelayManager:
             ).start()
 
     def close_connections(self):
-        print(f"closing connection to relays (from relay_manager.py)")
         for relay in self.relays.values():
-            print(f"closing connection to relay {relay.url} (from relay_manager.py)")
             relay.close()
 
     def publish_message(self, message: str):

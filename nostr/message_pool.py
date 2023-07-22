@@ -3,8 +3,6 @@ from queue import Queue
 from threading import Lock
 from .message_type import RelayMessageType
 from .event import Event
-# from append_json import *
-from python_nostr_package.nostr import PublicKey
 
 class EventMessage:
     def __init__(self, event: Event, subscription_id: str, url: str) -> None:
@@ -54,17 +52,10 @@ class MessagePool:
     def _process_message(self, message: str, url: str):
         message_json = json.loads(message)
         message_type = message_json[0]
-        # print(f"Message json on message pool from relay {url}: {message_json}")
-        # print(f"\nMessage json on message pool {self.relay_url}: {message_json}")
-        # if message_json[0] == "EVENT":
-        #     print(f"\n>> Poster's profile on snort.social: https://snort.social/p/{PublicKey.hex_to_bech32(message_json[2]['pubkey'], 'Encoding.BECH32')}")
-        #     print(f">> Event on snort.social: https://snort.social/e/{PublicKey.hex_to_bech32(message_json[2]['id'], 'Encoding.BECH32')}")
-        #     append_json(message_json)
-
         if message_type == RelayMessageType.EVENT:
             subscription_id = message_json[1]
             e = message_json[2]
-            event = Event(e['pubkey'], e['content'], e['created_at'], e['kind'], e['tags'], e['id'], e['sig'], message_json)
+            event = Event(e['pubkey'], e['content'], e['created_at'], e['kind'], e['tags'], e['id'], e['sig'])
             with self.lock:
                 if not event.id in self._unique_events:
                     self.events.put(EventMessage(event, subscription_id, url))
@@ -73,3 +64,5 @@ class MessagePool:
             self.notices.put(NoticeMessage(message_json[1], url))
         elif message_type == RelayMessageType.END_OF_STORED_EVENTS:
             self.eose_notices.put(EndOfStoredEventsMessage(message_json[1], url))
+
+

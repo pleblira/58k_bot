@@ -1,10 +1,13 @@
 import ssl
 import time
-from python_nostr_package.nostr import Event
-from python_nostr_package.nostr import RelayManager
-from python_nostr_package.nostr import PrivateKey, PublicKey
+from nostr import RelayManager
+from nostr import Event
+from nostr import PrivateKey, PublicKey
 import os
 from dotenv import load_dotenv, find_dotenv
+import sys
+
+sys.path.append("nostr")
 
 ENV_FILE = find_dotenv()
 if ENV_FILE:
@@ -26,7 +29,6 @@ def post_note(content):
     # event = Event(private_key.public_key.hex(), "Hey there " + str(random.randint(3, 9000)))
     print(f"event content to be posted is {event.content}")
     print(f"event id to be posted is {event.id}")
-    print(f">> Event on snort.social: https://snort.social/e/{PublicKey.hex_to_bech32(event.id, 'Encoding.BECH32')}")
 
     private_key.sign_event(event)
 

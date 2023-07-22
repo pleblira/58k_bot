@@ -6,8 +6,8 @@ from cryptography.hazmat.primitives.ciphers import Cipher, algorithms, modes
 from cryptography.hazmat.primitives import padding
 from hashlib import sha256
 
-from .delegation import Delegation
-from .event import Event
+from nostr.delegation import Delegation
+from nostr.event import Event
 from . import bech32
 
 
@@ -32,12 +32,6 @@ class PublicKey:
         hrp, data, spec = bech32.bech32_decode(npub)
         raw_public_key = bech32.convertbits(data, 5, 8)[:-1]
         return cls(bytes(raw_public_key))
-    
-    @staticmethod
-    def hex_to_bech32(key_str: str, spec, prefix='npub'):
-        as_int = [int(key_str[i:i+2], 16) for i in range(0, len(key_str), 2)]
-        data = bech32.convertbits(as_int, 8, 5)
-        return bech32.bech32_encode(prefix, data, spec)
 
 
 class PrivateKey:
@@ -108,8 +102,8 @@ class PrivateKey:
     def sign_event(self, event: Event) -> None:
         event.signature = self.sign_message_hash(bytes.fromhex(event.id))
 
-    # def sign_delegation(self, delegation: Delegation) -> None:
-    #     delegation.signature = self.sign_message_hash(sha256(delegation.delegation_token.encode()).digest())
+    def sign_delegation(self, delegation: Delegation) -> None:
+        delegation.signature = self.sign_message_hash(sha256(delegation.delegation_token.encode()).digest())
 
     def __eq__(self, other):
         return self.raw_secret == other.raw_secret

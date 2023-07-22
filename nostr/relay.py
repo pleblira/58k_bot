@@ -7,7 +7,6 @@ from .message_pool import MessagePool
 from .message_type import RelayMessageType
 from .subscription import Subscription
 
-
 class RelayPolicy:
     def __init__(self, should_read: bool=True, should_write: bool=True) -> None:
         self.should_read = should_read
@@ -24,7 +23,7 @@ class Relay:
             self, 
             url: str, 
             policy: RelayPolicy, 
-            message_pool: MessagePool(),
+            message_pool: MessagePool,
             subscriptions: dict[str, Subscription]={}) -> None:
         self.url = url
         self.policy = policy
@@ -45,11 +44,7 @@ class Relay:
         self.ws.close()
 
     def publish(self, message: str):
-        try:
-            self.ws.send(message)
-        except:
-            print("caught exception")
-
+        self.ws.send(message)
 
     def add_subscription(self, id, filters: Filters):
         with self.lock:
