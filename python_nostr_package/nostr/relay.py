@@ -19,24 +19,24 @@ class RelayPolicy:
     #         "write": self.should_write
     #     }
 
-class Relay:
-    def __init__(
-            self, 
-            url: str, 
-            policy: RelayPolicy, 
-            message_pool: MessagePool(),
-            subscriptions: dict[str, Subscription]={}) -> None:
-        self.url = url
-        self.policy = policy
-        self.message_pool = message_pool
-        self.subscriptions = subscriptions
-        self.lock = Lock()
-        self.ws = WebSocketApp(
-            url,
-            on_open=self._on_open,
-            on_message=self._on_message,
-            on_error=self._on_error,
-            on_close=self._on_close)
+# class Relay:
+#     def __init__(
+#             self, 
+#             url: str, 
+#             policy: RelayPolicy, 
+#             message_pool: MessagePool(),
+#             subscriptions: dict[str, Subscription]={}) -> None:
+#         self.url = url
+#         self.policy = policy
+#         self.message_pool = message_pool
+#         self.subscriptions = subscriptions
+#         self.lock = Lock()
+#         self.ws = WebSocketApp(
+#             url,
+#             on_open=self._on_open,
+#             on_message=self._on_message,
+#             on_error=self._on_error,
+#             on_close=self._on_close)
 
     def connect(self, ssl_options: dict=None):
         self.ws.run_forever(sslopt=ssl_options)
