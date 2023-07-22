@@ -4,8 +4,10 @@
 # from .key import PrivateKey, PublicKey
 # from .message_type import ClientMessageType
 # from .subscription import Subscription
-from .bech32 import *
 # from .delegation import *
+# from .setup import *
+
+from .bech32 import *
 from .event import *
 from .filter import *
 from .key import *
@@ -15,5 +17,4 @@ from .pow import *
 from .relay_manager import *
 from .relay import *
 from .request import *
-# from .setup import *
 from .subscription import *
