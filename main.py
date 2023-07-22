@@ -17,7 +17,7 @@ def bot58k():
     post_note(upload_to_voidcat_and_return_url("58k_bot_with_text.png", "png"))
 
 if __name__ == '__main__':
-    bot58k()
+    # bot58k()
     scheduler = BlockingScheduler()
     scheduler.add_job(bot58k, 'cron', hour=12, minute=30, timezone="America/New_York")
     scheduler.add_job(bot58k, 'cron', hour=00, minute=30, timezone="America/New_York")
