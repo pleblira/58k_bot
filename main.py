@@ -13,8 +13,8 @@ def bot58k():
     print(f"{price_58k:.3f}")
 
     text_on_images(f"{price_58k:.4f}", "58k_bot.png")
-    tweet_with_apiv2("58k update\n\nnpub16f3vcd2tqkl3x72uxpzkcqudtjrt9mp5h7x69k4p802wptwh7qmqjeaq7t", "58k_bot_with_text.png")
-    post_note(upload_to_voidcat_and_return_url("58k_bot_with_text.png", "png"))
+    url_of_note_on_snort_social = post_note(upload_to_voidcat_and_return_url("58k_bot_with_text.png", "png"))
+    tweet_with_apiv2("58k update"+"\n\nNOSTR: "+url_of_note_on_snort_social", "58k_bot_with_text.png")
 
 if __name__ == '__main__':
     scheduler = BlockingScheduler()
